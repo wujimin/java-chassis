@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,24 +16,16 @@
 
 package io.servicecomb.demo.compute;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 
-public class Person {
-  @JsonSerialize(using = SecretSerializer.class)
-  @JsonDeserialize(using = SecretDeserialize.class)
-  private String name;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getName() {
-    return this.name;
-  }
-
+public class SecretSerializer extends JsonSerializer<String> {
   @Override
-  public String toString() {
-    return name;
+  public void serialize(String value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    value = value + " wjm";
+    gen.writeString(value);
   }
 }
