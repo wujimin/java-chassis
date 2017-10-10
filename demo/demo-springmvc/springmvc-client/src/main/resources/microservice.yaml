@@ -11,7 +11,7 @@ cse:
   handler:
     chain:
       Consumer:
-        default: loadbalance,bizkeeper-consumer
+        default: loadbalance
   tracing:
     enabled: true
     samplingRate: 0.5

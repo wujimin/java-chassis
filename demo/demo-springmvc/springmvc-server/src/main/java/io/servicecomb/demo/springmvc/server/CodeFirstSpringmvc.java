@@ -49,15 +49,29 @@ import io.servicecomb.swagger.extend.annotations.ResponseHeaders;
 import io.servicecomb.swagger.invocation.Response;
 import io.servicecomb.swagger.invocation.context.ContextUtils;
 import io.servicecomb.swagger.invocation.context.InvocationContext;
+import io.servicecomb.swagger.invocation.exception.InvocationException;
 import io.servicecomb.swagger.invocation.response.Headers;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.Extension;
+import io.swagger.annotations.ExtensionProperty;
 import io.swagger.annotations.ResponseHeader;
 
 @RestSchema(schemaId = "codeFirst")
 @RequestMapping(path = "/codeFirstSpringmvc", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CodeFirstSpringmvc {
+  @ApiOperation(
+      extensions = {@Extension(name = "x-cache",
+          properties = {@ExtensionProperty(name = "key", value = "a,b"),
+              @ExtensionProperty(name = "expire", value = "1800")})},
+      value = "")
+  @RequestMapping(path = "/cache", method = RequestMethod.GET)
+  public String cache(@RequestParam(name = "a") String a, @RequestParam(name = "b") int b) {
+    return a + b;
+  }
+
   @ResponseHeaders({@ResponseHeader(name = "h1", response = String.class),
       @ResponseHeader(name = "h2", response = String.class)})
   @RequestMapping(path = "/responseEntity", method = RequestMethod.POST)

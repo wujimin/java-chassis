@@ -65,6 +65,11 @@ public class CodeFirstRestTemplateSpringmvc extends CodeFirstRestTemplate {
   }
 
   private void testResponseEntity(String microserviceName, RestTemplate template, String cseUrlPrefix) {
+    ResponseEntity<String> result = template.getForEntity(cseUrlPrefix + "cache?a=a&b=1", String.class);
+    System.out.println(result.getBody());
+    System.out.println(result.getHeaders());
+
+
     Map<String, Object> body = new HashMap<>();
     Date date = new Date();
     body.put("date", date);
@@ -82,7 +87,7 @@ public class CodeFirstRestTemplateSpringmvc extends CodeFirstRestTemplate {
     TestMgr.check("h2v {contextKey=contextValue, x-cse-src-microservice=" + srcName + "}",
         responseEntity.getHeaders().getFirst("h2"));
     checkStatusCode(microserviceName, 202, responseEntity.getStatusCode());
-    
+
     responseEntity =
         template.exchange(cseUrlPrefix + "responseEntity", HttpMethod.PATCH, httpEntity, Date.class);
     TestMgr.check(date, responseEntity.getBody());

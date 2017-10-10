@@ -20,7 +20,8 @@ cse:
   handler:
     chain:
       Provider:
-        default: bizkeeper-provider
+        default: cache
+#        default: bizkeeper-provider
   tracing:
     enabled: true
     samplingRate: 0.5
