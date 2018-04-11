@@ -17,6 +17,7 @@
 package org.apache.servicecomb.metrics.core.publish;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.servicecomb.foundation.metrics.publish.spectator.MeasurementGroupConfig;
 import org.apache.servicecomb.foundation.metrics.publish.spectator.MeasurementNode;
@@ -89,6 +90,11 @@ public class PublishModelFactory {
 
     ThreadPoolMonitorPublishModelFactory.create(tree, model.getThreadPools());
 
+    for (Entry<String, MeasurementNode> entry : tree.getChildren().entrySet()) {
+      if (entry.getKey().startsWith("jvm.gc")) {
+        System.out.println(entry.getValue().getMeasurements());
+      }
+    }
     return model;
   }
 }

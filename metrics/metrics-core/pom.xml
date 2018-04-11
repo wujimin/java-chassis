@@ -41,6 +41,14 @@
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>swagger-generator-jaxrs</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.netflix.spectator</groupId>
+      <artifactId>spectator-ext-gc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.netflix.spectator</groupId>
+      <artifactId>spectator-ext-jvm</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
