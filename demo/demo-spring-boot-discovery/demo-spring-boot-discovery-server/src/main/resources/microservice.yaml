@@ -32,4 +32,6 @@ servicecomb:
     chain:
       Provider:
         default: bizkeeper-provider
+  uploads:
+    directory: .
 servicecomb.rest.servlet.urlPattern: /*

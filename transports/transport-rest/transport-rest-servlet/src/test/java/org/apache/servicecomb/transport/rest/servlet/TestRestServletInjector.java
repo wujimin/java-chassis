@@ -41,7 +41,7 @@ public class TestRestServletInjector {
       }
     };
 
-    Assert.assertEquals(null, RestServletInjector.defaultInject(servletContext));
+    Assert.assertEquals(null, RestServletInjector.defaultInject(servletContext,true));
   }
 
   @Test
@@ -60,7 +60,7 @@ public class TestRestServletInjector {
       };
     }
 
-    Assert.assertEquals(null, RestServletInjector.defaultInject(servletContext));
+    Assert.assertEquals(null, RestServletInjector.defaultInject(servletContext,true));
   }
 
   @Test
@@ -78,7 +78,7 @@ public class TestRestServletInjector {
         }
       };
 
-      Assert.assertEquals(dynamic, RestServletInjector.defaultInject(servletContext));
+      Assert.assertEquals(dynamic, RestServletInjector.defaultInject(servletContext,true));
     }
   }
 }

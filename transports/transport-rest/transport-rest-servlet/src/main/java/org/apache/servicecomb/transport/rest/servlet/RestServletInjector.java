@@ -31,25 +31,26 @@ public class RestServletInjector {
 
   public static final String SERVLET_NAME = "ServicecombRestServlet";
 
-  public static Dynamic defaultInject(ServletContext servletContext) {
+  public static Dynamic defaultInject(ServletContext servletContext, boolean checkPort) {
     RestServletInjector injector = new RestServletInjector();
 
     String urlPattern = ServletConfig.getServletUrlPattern();
-    return injector.inject(servletContext, urlPattern);
+    return injector.inject(servletContext, urlPattern,checkPort);
   }
 
-  public Dynamic inject(ServletContext servletContext, String urlPattern) {
+  public Dynamic inject(ServletContext servletContext, String urlPattern, boolean checkPort) {
     String[] urlPatterns = splitUrlPattern(urlPattern);
     if (urlPatterns.length == 0) {
       LOGGER.warn("urlPattern is empty, ignore register {}.", SERVLET_NAME);
       return null;
     }
 
+    if (checkPort){
     String listenAddress = ServletConfig.getLocalServerAddress();
     if (!ServletUtils.canPublishEndpoint(listenAddress)) {
       LOGGER.warn("ignore register {}.", SERVLET_NAME);
       return null;
-    }
+    }}
 
     // dynamic deploy a servlet to handle serviceComb RESTful request
     Dynamic dynamic = servletContext.addServlet(SERVLET_NAME, RestServlet.class);

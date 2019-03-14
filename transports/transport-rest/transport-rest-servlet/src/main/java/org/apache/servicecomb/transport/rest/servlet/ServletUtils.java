@@ -171,8 +171,8 @@ public class ServletUtils {
     }
   }
 
-  public static void init(ServletContext servletContext) {
-    RestServletInjector.defaultInject(servletContext);
+  public static void init(ServletContext servletContext, boolean checkPort) {
+    RestServletInjector.defaultInject(servletContext,checkPort);
     ServletUtils.saveUrlPrefix(servletContext);
     setServletParameters(servletContext);
   }

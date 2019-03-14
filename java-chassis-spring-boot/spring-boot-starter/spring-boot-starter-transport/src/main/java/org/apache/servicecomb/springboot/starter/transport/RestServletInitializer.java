@@ -28,8 +28,10 @@ import org.apache.servicecomb.transport.rest.servlet.ServletConfig;
 import org.apache.servicecomb.transport.rest.servlet.ServletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.AbstractConfigurableEmbeddedServletContainer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -43,12 +45,17 @@ public class RestServletInitializer extends AbstractConfigurableEmbeddedServletC
     implements ServletContextInitializer {
   private static final Logger LOGGER = LoggerFactory.getLogger(RestServletInitializer.class);
 
+  @Autowired
+  Environment environment;
+
   @SuppressWarnings("try")
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
     if (getPort() == 0) {
+      String port = environment.getProperty("local.server.port");
       LOGGER.warn(
-          "spring boot embed web container listen port is 0, serviceComb will not use container's port to handler RESTful request.");
+          "spring boot embed web container listen port is 0, serviceComb will not use container's port to handler RESTful request, {}.",
+          port);
       return;
     }
 
@@ -61,7 +68,7 @@ public class RestServletInitializer extends AbstractConfigurableEmbeddedServletC
         configuration.setProperty(ServletConfig.KEY_SERVLET_URL_PATTERN, ServletConfig.DEFAULT_URL_PATTERN);
       }
 
-      ServletUtils.init(servletContext);
+      ServletUtils.init(servletContext, true);
     } catch (IOException e) {
       throw new ServletException(e);
     }

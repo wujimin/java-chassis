@@ -111,7 +111,7 @@ public class TestCseXmlWebApplicationContext {
     Holder<Boolean> holder = new Holder<>();
     new MockUp<RestServletInjector>() {
       @Mock
-      public Dynamic defaultInject(ServletContext servletContext) {
+      public Dynamic defaultInject(ServletContext servletContext, boolean checkPort) {
         holder.value = true;
         return null;
       }

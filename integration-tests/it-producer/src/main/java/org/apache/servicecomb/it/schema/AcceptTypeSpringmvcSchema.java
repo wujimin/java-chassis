@@ -17,6 +17,9 @@
 package org.apache.servicecomb.it.schema;
 
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,5 +35,10 @@ public class AcceptTypeSpringmvcSchema {
   @RequestMapping(path = "/sayHello", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
   public String sayHello(@RequestParam(name = "name", defaultValue = "test") String name) {
     return name;
+  }
+
+  @PutMapping(path = "/putSome")
+  public ResponseEntity<Void> putSome() {
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }
